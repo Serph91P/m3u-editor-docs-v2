@@ -133,7 +133,7 @@ Post-processing actions run automatically after each sync that adds or updates c
 | Field | Description |
 |---|---|
 | **Enabled** | Toggle the action on or off without removing it |
-| **Action** | What to do: `Sort Alpha` or `Recount Channels` |
+| **Action** | What to do: `Sort Alpha` or `Renumber Channels` |
 | **Target** | Which channels to apply to: `All`, `Live`, or `VOD` |
 | **Groups** | Limit to specific groups, or `All groups` |
 
@@ -145,7 +145,7 @@ Post-processing actions run automatically after each sync that adds or updates c
 | Action | Description |
 |---|---|
 | **Sort Alpha** | Sorts channels alphabetically within the target group/type |
-| **Recount Channels** | Reassigns sequential channel numbers starting from 1 |
+| **Renumber Channels** | Reassigns sequential channel numbers starting from 1 |
 
 ### Example: Sort live channels after every sync
 
