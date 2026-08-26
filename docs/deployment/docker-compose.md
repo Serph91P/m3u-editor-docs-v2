@@ -56,7 +56,7 @@ docker-compose -f docker-compose.proxy.yml up -d
 |---------|-----------|------|---------|
 | m3u-editor | m3u-editor | 36400 | Main application |
 | m3u-proxy | m3u-proxy | 8085* | Streaming proxy |
-| Redis | m3u-redis | 6379* | Caching and pooling |
+| Redis | m3u-redis | 36790* | Caching and pooling |
 | PostgreSQL | embedded | 5432* | Database |
 
 *Internal ports only
@@ -219,7 +219,7 @@ Default ports for each setup:
 | M3U Editor | 36400 | ✅ `APP_PORT` |
 | M3U Proxy | 38085 | ✅ `M3U_PROXY_PORT` |
 | PostgreSQL | 5432 | ✅ `PG_PORT` |
-| Redis | 6379 | ✅ `REDIS_PORT` |
+| Redis | 36790 | ✅ `REDIS_SERVER_PORT` |
 | Nginx | 8080 | ✅ `NGINX_PORT` |
 | Caddy | 8080 | ✅ `CADDY_PORT` |
 

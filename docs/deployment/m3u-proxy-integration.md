@@ -85,8 +85,8 @@ PORT=38085
 # Redis Configuration
 REDIS_ENABLED=true
 REDIS_HOST=redis
-REDIS_PORT=6379
-REDIS_DB=6
+REDIS_SERVER_PORT=36790   # match m3u-editor's bundled Redis; use 6379 for a standalone redis you manage
+REDIS_DB=6                # m3u-editor uses db 0 on the same instance
 ENABLE_REDIS_POOLING=true
 
 # Logging

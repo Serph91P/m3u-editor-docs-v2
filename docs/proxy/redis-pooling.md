@@ -49,8 +49,8 @@ One shared process serves all clients watching the same stream (same URL + trans
 # Enable Redis
 REDIS_ENABLED=true
 REDIS_HOST=redis                # Redis hostname
-REDIS_SERVER_PORT=6379          # Redis port
-REDIS_DB=6                      # Redis database number
+REDIS_SERVER_PORT=6379          # Redis port (use 36790 when sharing m3u-editor's bundled Redis)
+REDIS_DB=6                      # Redis logical database (m3u-editor uses db 0 on the same instance)
 REDIS_PASSWORD=                 # Optional auth password
 
 # Pooling behaviour

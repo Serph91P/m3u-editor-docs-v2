@@ -147,14 +147,21 @@ Required when using stream pooling or running multiple proxy workers. See [Redis
 |----------|---------|-------------|
 | `REDIS_ENABLED` | `false` | Enable Redis integration |
 | `REDIS_HOST` | `localhost` | Redis server hostname |
-| `REDIS_SERVER_PORT` | `6379` | Redis server port |
-| `REDIS_DB` | `0` | Redis database number |
+| `REDIS_SERVER_PORT` | `6379` | Redis server port. The compose wizard and the bundled m3u-editor Redis use `36790` (see note below) |
+| `REDIS_DB` | `0` | Redis logical database. Use `6` when the proxy shares a Redis instance with m3u-editor, which uses db `0` (see note below) |
 | `REDIS_PASSWORD` | _(unset)_ | Redis password (if auth is enabled) |
 | `ENABLE_TRANSCODING_POOLING` | `true` | Share transcoding processes across clients |
 | `MAX_CLIENTS_PER_SHARED_STREAM` | `10` | Maximum clients per shared stream |
 | `CHANGE_BUFFER_CHUNKS` | `100` | Buffer size for stream change coordination |
 | `WORKER_ID` | _(auto)_ | Unique identifier for this worker instance |
 | `HEARTBEAT_INTERVAL` | `30` | Seconds between worker heartbeat updates |
+
+:::note Port and database when integrating with m3u-editor
+The values above are the proxy's own standalone defaults. When you run the proxy alongside m3u-editor (including every file the [compose wizard](https://m3u-editor.com/compose-wizard) generates):
+
+- **Port** is `36790`, not `6379`. That is the default port of m3u-editor's bundled Redis (`REDIS_SERVER_PORT`), and the wizard starts the standalone `redis` container on the same port so a single value works everywhere. Set `REDIS_SERVER_PORT=6379` only if you point the proxy at a plain `redis:*` container you manage yourself on the default port.
+- **Database** is `6`. m3u-editor uses db `0` on the shared instance, so the proxy is placed on db `6` to keep the two key spaces separate. Keep the proxy and any extra proxy workers on the same db.
+:::
 
 ## Example Configurations
 

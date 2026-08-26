@@ -335,8 +335,10 @@ ${proxyVolumes.join('\n')}`;
 
   // Healthcheck for proxy service
   // Uses $$API_TOKEN so Docker Compose passes the literal $API_TOKEN to the container shell,
-  // which expands the container's own env var — avoids embedding the token value in plain text.
+  // which expands the container's own env var and avoids embedding the token value in plain text.
   service += `
+    # The $$ in $$API_TOKEN is intentional: Compose escapes it to a literal $, so the
+    # container shell expands its own API_TOKEN env var. Do not change it to \${API_TOKEN}.
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://127.0.0.1:${config.M3U_PROXY_PORT || '38085'}/health?api_token=$$API_TOKEN"]
       interval: 30s
