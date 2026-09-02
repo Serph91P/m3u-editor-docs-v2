@@ -25,6 +25,10 @@ The event system runs asynchronously and never blocks stream operations, even if
 | `CLIENT_CONNECTED` | A media player connects to a stream |
 | `CLIENT_DISCONNECTED` | A media player disconnects |
 | `FAILOVER_TRIGGERED` | The proxy switches to a backup URL |
+| `CONNECTION_IDLE_WARNING` | A connected client has sent/received no data for longer than `CONNECTION_IDLE_ALERT_THRESHOLD` (default 600s) |
+| `CONNECTION_IDLE_ERROR` | A connected client has been idle longer than `CONNECTION_IDLE_ERROR_THRESHOLD` (default 1800s), indicating a likely resource leak |
+
+The two `CONNECTION_IDLE_*` events are emitted by the idle-connection monitor, which is controlled by `ENABLE_CONNECTION_IDLE_MONITORING` (default `true`). Each is fired at most once per client until the connection recovers or is closed.
 
 ## Registering a Webhook
 
@@ -125,6 +129,38 @@ All events share the same envelope structure:
     "old_url": "http://primary.com/stream.m3u8",
     "new_url": "http://backup.com/stream.m3u8",
     "failover_index": 1
+  }
+}
+```
+
+### connection_idle_warning
+
+```json
+{
+  "event_type": "connection_idle_warning",
+  "stream_id": "abc123",
+  "data": {
+    "client_id": "client_456",
+    "idle_seconds": 812.4,
+    "threshold_seconds": 600,
+    "ip_address": "192.168.1.100",
+    "bytes_served": 25850000
+  }
+}
+```
+
+### connection_idle_error
+
+```json
+{
+  "event_type": "connection_idle_error",
+  "stream_id": "abc123",
+  "data": {
+    "client_id": "client_456",
+    "idle_seconds": 1829.0,
+    "threshold_seconds": 1800,
+    "ip_address": "192.168.1.100",
+    "bytes_served": 25850000
   }
 }
 ```
